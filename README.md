@@ -10,9 +10,8 @@
 3. 使用VsCode 编辑mardown文档
 4. 使用[LaTex](https://www.latex-project.org/get/)语法写数学公式
 5. 使用VsCode [drawio](https://www.drawio.com/blog/embed-diagrams-vscode) 插件编辑流程图，另存为SVG格式以嵌入markdown
-6. 提交到github上去
-7. 完成编辑后将其先转换为html
-8. 然后将html转换为 PDF 即可
+6. 提交到github上去；然后使用 `Print GitHub Markdown` Chrome 插件生成的 PDF
+7. 或者完成编辑后将其先转换为html；然后使用chrome-headless-render-pdf将html转换为 PDF 即可
 
 ## 完整的例子
 
@@ -20,9 +19,11 @@
 
 1. prod01.docx 是原始文档
 2. prod01_1.md 是使用SVG 图片
-3. prod01_2.md 是使用mermaid 图片 - 竖排
-4. prod01_3.md 是使用mermaid 图片 - 横排
-5. style.css 是用于生成html 的CSS格式
+3. prod01_2.md 是使用mermaid 图片 - 横排
+4. prod01_2a.pdf 是使用 `Print GitHub Markdown` Chrome 插件生成的 PDF
+5. prod01_2b.pdf 是使用使用直接chrome 打印功能生成的 PDF< 效果不好>
+6. prod01_3.md 是使用mermaid 图片 - 竖排
+7. style.css 是用于生成html 的CSS格式
 
 备注
 
@@ -33,4 +34,5 @@
 5. 关于第5步，还有一个选项是在使用drawio插件编辑完，生成SVG文件后，可以使用大模型生成mermaid语法的图形；但是在接下来生成 PDF 文档时不够清晰，没有 SVG 效果好
 6. 提交的时候，注意写清楚注释，以便将来可以自动生成文档的编辑历史
 7. 命令行 `pandoc prod01_1.md -o prod01_1.html --mathml --css=style.css --standalone`;其中的style.css文件 ``CSS table { border-collapse: collapse; margin: 1em auto; border: 1px solid #333; } th, td { padding: 8px; border: 1px solid #333; }``
-8. 使用chrome的pdf 打印功能时，设置好文档的左右边界，以及页眉页脚的大小
+8. 使用chrome的pdf 打印功能时，设置好文档的左右边界，以及页眉页脚的大小；如果没有数学公式，而且希望生成漂亮的格式，可以使用chrome-headless-render-pdf
+9. 可以使用github  的功能自动生成PDF文件
