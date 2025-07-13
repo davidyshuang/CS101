@@ -1,0 +1,21 @@
+/* 表格基础样式 */
+table {
+    border-collapse: collapse;  /* 合并边框线 */
+    width: 100%;               /* 表格宽度占满容器 */
+    margin: 1em auto;          /* 表格外间距 */
+}
+
+/* 表头样式 */
+th {
+    background-color: #f2f2f2;  /* 浅灰色背景 */
+    font-weight: bold;         /* 加粗字体 */
+    padding: 8px;              /* 内边距 */
+    border: 1px solid #333;     /* 边框线 */
+    text-align: left;           /* 文本左对齐（可改为center或right） */
+}
+
+/* 单元格样式 */
+td {
+    padding: 8px;              /* 与表头内边距一致 */
+    border: 1px solid #333;    /* 边框线 */
+}
