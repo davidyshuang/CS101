@@ -19,3 +19,26 @@ td {
     padding: 8px;              /* 与表头内边距一致 */
     border: 1px solid #333;    /* 边框线 */
 }
+
+@media print {
+  @page {
+    @top-left {
+      content: "左侧页眉";
+    }
+    @top-center {
+      content: "中间页眉";
+    }
+    @top-right {
+      content: "右侧页眉";
+    }
+    @bottom-left {
+      content: "左侧页脚";
+    }
+    @bottom-center {
+      content: counter(page); /* 显示页码 */
+    }
+    @bottom-right {
+      content: "右侧页脚";
+    }
+  }
+}
