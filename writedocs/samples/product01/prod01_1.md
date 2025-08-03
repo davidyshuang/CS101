@@ -1,3 +1,13 @@
+---
+title: "文档标题"
+header-includes: |
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \fancyhead[L]{左页眉}
+  \fancyhead[R]{右页眉}
+  \fancyfoot[C]{\thepage}
+---
+
 # 公募浮动管理费需求分析
 
 ## 业务概述

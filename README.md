@@ -19,11 +19,8 @@
 
 1. prod01.docx 是原始文档
 2. prod01_1.md 是使用SVG 图片
-3. prod01_2.md 是使用mermaid 图片 - 横排
-4. prod01_2a.pdf 是使用 `Print GitHub Markdown` Chrome 插件生成的 PDF
-5. prod01_2b.pdf 是使用使用直接chrome 打印功能生成的 PDF< 效果不好>
-6. prod01_3.md 是使用mermaid 图片 - 竖排
-7. style.css 是用于生成html 的CSS格式
+3. prod01_1.pdf 是使用 `Print GitHub Markdown` Chrome 插件生成的 PDF
+4. style.css 是用于生成html 的CSS格式
 
 备注
 
