@@ -20,11 +20,11 @@ Draw.io(现更名为Diagrams.net)作为一款免费、开源且功能强大的�
 
 BPMN(Business Process Model and Notation)是一种图形化的业务流程建模标准，它通过统一的符号体系帮助业务人员与技术人员有效沟通。要掌握BPMN，首先需要理解其基本构成元素：
 
-* **流元素**：包括事件(圆形)、活动(矩形)和网关(菱形)，这三者是BPMN的核心构件。事件表示流程中发生的事情，活动是需要完成的工作，网关则控制流程的分支与合并。
-* **连接对象**：主要是顺序流(实线箭头)、消息流(虚线箭头)和关联(点线)，它们将流元素连接起来形成完整流程。
-* **泳道**：包括池(Pool)和道(Lane)，用于划分不同部门或角色在流程中的职责。泳道能够清晰地展示跨部门协作的流程。
-* **数据对象**：表示流程中产生、使用或传递的数据，如文档、数据库等。
-* **Artifact**:
+* **流元素(Flow Objects)**：包括事件(圆形)、活动(矩形)和网关(菱形)，这三者是BPMN的核心构件。事件表示流程中发生的事情，活动是需要完成的工作，网关则控制流程的分支与合并。
+* **连接对象(Connecting Objects)**：主要是顺序流(实线箭头)、消息流(虚线箭头)和关联(点线)，它们将流元素连接起来形成完整流程。
+* **泳道(Swimlanes)**：包括池(Pool)和道(Lane)，用于划分不同部门或角色在流程中的职责。泳道能够清晰地展示跨部门协作的流程。
+* **数据对象(Data Objects)**：表示流程中产生、使用或传递的数据，如文档、数据库等。
+* 人工信息(Artifact):
 
 ### 1.2 Draw.io工具入门
 
@@ -56,7 +56,7 @@ Draw.io是一款完全免费的在线图表工具，支持多种图表类型包�
 
 要成为BPMN专家，必须深入理解各种符号的细微差别和使用场景：
 
-* **事件类型**：开始事件(单细线圆)、中间事件(双线圆)和结束事件(粗线圆)，每种事件又可分为多种类型如消息事件、定时事件、错误事件等。百度知道的文章详细介绍了如何在Draw.io中使用这些事件符号。
+* **事件类型**：开始事件(单细线圆)、中间事件(双线圆)和结束事件(粗线圆)，每种事件又可分为多种类型如消息事件、定时事件、错误事件等。
 * **网关类型**：
   * 排他网关(XOR)：只有一个路径会被选择
   * 并行网关(AND)：所有路径同时执行
@@ -70,8 +70,6 @@ Draw.io是一款完全免费的在线图表工具，支持多种图表类型包�
   * 补偿活动：用于错误恢复的特殊活动
   * 事务：具有ACID属性的活动组
   * 事件子流程：由事件触发的嵌套子流程
-
-建议通过《BPMN教程：初学者必看的流程图绘制指南》中的符号详解部分系统学习这些元素，并在Draw.io中逐一尝试绘制。
 
 ### 2.2 Draw.io高效使用技巧
 
@@ -97,8 +95,6 @@ Draw.io是一款完全免费的在线图表工具，支持多种图表类型包�
    * 创建自定义模板复用常用设计
    * 建立样式库保持企业标准
 
-CSDN博客的《Draw.io：在线图形绘制工具教程与实战指南》详细介绍了这些高级功能的使用方法。
-
 ### 2.3 绘制中等复杂度业务流程
 
 结合BPMN知识和工具技巧，可以开始挑战更复杂的业务场景：
@@ -107,8 +103,6 @@ CSDN博客的《Draw.io：在线图形绘制工具教程与实战指南》详细
 2. **错误处理流程**：通过中间错误事件和补偿活动描述异常处理逻辑，如"支付失败→重试/取消订单"。
 3. **事件驱动流程**：使用消息事件、定时事件等描述异步流程，如"提交申请→等待审批→超时自动拒绝"。
 4. **多角色协作流程**：使用多个池(Pool)和消息流描述跨系统或跨组织的交互，如"客户系统→电商平台→支付网关"的订单流程。
-
-腾讯云开发者社区的文章《"业务架构"如何创建BPMN图?》提供了这类跨系统流程的建模思路。
 
 ## 第三阶段：高级BPMN模式与专业应用
 
@@ -123,8 +117,6 @@ CSDN博客的《Draw.io：在线图形绘制工具教程与实战指南》详细
 5. **编排与协作模型**：
    * 编排(Orchestration)：从单一视角描述流程
    * 协作(Choreography)：强调参与者间的交互
-
-百度知道的文章介绍了如何在Draw.io中使用BPMN 2.0图形库构建这些高级模型。
 
 ### 3.2 Draw.io高级功能应用
 
@@ -141,8 +133,6 @@ CSDN博客的《Draw.io：在线图形绘制工具教程与实战指南》详细
    * 导入Visio文件继续编辑
    * 导出为多种格式嵌入文档
 
-微信公众号文章《Draw.io：免费、高效、全能的图表设计利器》详细介绍了这些企业级应用场景。
-
 ### 3.3 复杂业务流程建模实战
 
 将高级BPMN知识应用于实际业务场景：
@@ -154,8 +144,6 @@ CSDN博客的《Draw.io：在线图形绘制工具教程与实战指南》详细
    * 银行业：贷款审批流程
    * 医疗业：患者就诊流程
    * 制造业：生产质量控制流程
-
-慕课网的《BPMN资料入门指南：轻松掌握业务流程建模》提供了一些行业案例和设计思路。
 
 ## 第四阶段：BPMN最佳实践与持续精进
 
@@ -178,8 +166,6 @@ CSDN博客的《Draw.io：在线图形绘制工具教程与实战指南》详细
    * 符号混用或不规范
    * 遗漏异常处理路径
    * 泳道划分不合理
-
-《BPMN资料入门指南：轻松掌握业务流程建模》专门用一章讨论了设计误区及避免方法，非常值得参考。
 
 ### 4.2 持续学习资源
 
@@ -223,9 +209,29 @@ CSDN博客的《Draw.io：在线图形绘制工具教程与实战指南》详细
 
 通过这条系统化的学习路径，配合持续的实践和反思，您将逐步成长为真正的Draw.io和BPMN专家，能够在企业业务流程管理、优化和自动化项目中发挥关键作用。记住，BPMN不仅是一种绘图技能，更是一种业务流程思维方式的培养，这将使您在数字化转型浪潮中保持竞争优势
 
-## 其他有用的信息
+## BPMN Elements
 
-* 使用BPMN fonts - [bpmn fronts](https://github.com/bpmn-io/bpmn-font)
+### Flow Objects
+
+#### Events
+
+![BPMN-Symbols-Event](bpmn-symbols/events/bpmn-events-2.png)
+
+![BPMN-Symbols-Event](bpmn-symbols/events/bpmn-events-and-markers.png)
+
+#### Activities
+
+BPMN activities types
+
+![activities](bpmn-symbols/tasks/activities.png)
+
+#### Gateways
+
+* [Visual Paradigm BPMN gateway types](https://www.visual-paradigm.com/guide/bpmn/bpmn-gateway-types/)
+
+![gateway types](bpmn-symbols/gateways/gateway-types.png)
+
+## 其他有用的信息
 
 1. [Visual Paradigm - guide](https://www.visual-paradigm.com/cn/guide/)
 2. [Visual Paradigm - what is BPMN](https://www.visual-paradigm.com/guide/bpmn/what-is-bpmn/)
@@ -234,3 +240,4 @@ CSDN博客的《Draw.io：在线图形绘制工具教程与实战指南》详细
 5. [BPMN 2.0 Symbol Reference](https://camunda.com/bpmn/reference/)
 6. https://www.lucidchart.com/pages/tutorial/bpmn-symbols-explained
 7. [Open source workflow - activiti](https://www.activiti.org/)
+8. 使用BPMN fonts - [bpmn fronts](https://github.com/bpmn-io/bpmn-font)
