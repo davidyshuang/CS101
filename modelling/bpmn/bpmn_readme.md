@@ -4,13 +4,15 @@
 
 1. 客户的全生命周期管理、证券清算流程、支付清算流程业务流程，在这些流程中，有系统处理的流程也有需要运营人员使用系统操作的流程
 2. 产品研发、需求管理
-3. （软件)工程项目管理
+3. （软件）工程项目管理
 4. Service manageemnt - incident management
 5. 某个专业流域的管理流程，例如数据治理、root cause analysis等
 6. 专门的客户服务、风险管理流程等
 
 Draw.io(现更名为Diagrams.net)作为一款免费、开源且功能强大的图表工具，是学习和实践BPMN的理想选择。本指南以一个软件开发的流程管理为例，将为您提供一条从零基础到BPMN专家的系统学习路径，涵盖基础概念掌握、工具熟练使用、高级技巧应用以及实战经验积累，先从一个简单的Orchestration 流程, 扩张到collaboration流程以及Choreography来详细介绍BPMN 2.0.
 
+> [!Tip]
+> 1. 使用[在线drawio 应用](https://app.diagrams.net/)
 > 1. 下载[drawio desktop](https://www.drawio.com/)
 > 2. 或者使用VS Code 的[drawio 插件](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
 
@@ -18,13 +20,15 @@ Draw.io(现更名为Diagrams.net)作为一款免费、开源且功能强大的�
 
 ### 1.1 理解BPMN核心概念
 
-BPMN(Business Process Model and Notation)是一种图形化的业务流程建模标准，它通过统一的符号体系帮助业务人员与技术人员有效沟通。要掌握BPMN，首先需要理解其基本构成元素：
+BPMN(Business Process Model and Notation)是一种图形化的业务流程建模标准，它通过统一的符号体系帮助业务人员与技术人员有效沟通。要掌握BPMN，首先需要理解其基本构成元素，我们通过一个简单的流程图来示例。
+
+![ ] TODO
 
 * **流元素(Flow Objects)**：包括事件(圆形)、活动(矩形)和网关(菱形)，这三者是BPMN的核心构件。事件表示流程中发生的事情，活动是需要完成的工作，网关则控制流程的分支与合并。
 * **连接对象(Connecting Objects)**：主要是顺序流(实线箭头)、消息流(虚线箭头)和关联(点线)，它们将流元素连接起来形成完整流程。
 * **泳道(Swimlanes)**：包括池(Pool)和道(Lane)，用于划分不同部门或角色在流程中的职责。泳道能够清晰地展示跨部门协作的流程。
 * **数据对象(Data Objects)**：表示流程中产生、使用或传递的数据，如文档、数据库等。
-* 人工信息(Artifact):
+* **人工信息(Artifact)**:
 
 ### 1.2 Draw.io工具入门
 
@@ -132,6 +136,12 @@ Draw.io是一款完全免费的在线图表工具，支持多种图表类型包�
    * 通过插件与Confluence、Jira等系统集成
    * 导入Visio文件继续编辑
    * 导出为多种格式嵌入文档
+
+### 编程
+
+bpmn-js
+
+mxGraph - drawio
 
 ### 3.3 复杂业务流程建模实战
 

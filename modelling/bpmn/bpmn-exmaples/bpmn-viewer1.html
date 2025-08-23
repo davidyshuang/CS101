@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw.io 动态渲染器</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; }
+        #drawio-container { height: 100vh; }
+        .file-controls { padding: 15px; background: #f5f7fa; border-bottom: 1px solid #ddd; }
+        input { padding: 8px; width: 300px; border: 1px solid #3498db; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="file-controls">
+        <label for="file-input">输入Draw.io文件名（无需扩展名）:</label>
+        <input type="text" id="file-input" placeholder="例如：flowchart" value="flowchart">
+        <button onclick="loadDiagram()">加载图表</button>
+    </div>
+    <div id="drawio-container">
+        <iframe id="drawio-frame" frameborder="0" style="width:100%;height:100%;"></iframe>
+    </div>
+
+    <script>
+        // 核心功能：通过文件名动态生成Draw.io嵌入URL
+        function loadDiagram() {
+            const fileName = document.getElementById('file-input').value.trim();
+            if (!fileName) return;
+            
+            // 构建Draw.io专属加载URL（支持本地/云端文件）
+            const embedUrl = `https://app.diagrams.net/?embed=1&ui=atlas&proto=json&spin=1&configure=1` +
+                            `&load=${encodeURIComponent(fileName + '.drawio')}`;
+            
+            document.getElementById('drawio-frame').src = embedUrl;
+        }
+
+        // 页面加载后自动渲染默认文件
+        window.onload = loadDiagram;
+    </script>
+</body>
+</html>
