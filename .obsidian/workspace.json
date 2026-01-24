@@ -1,0 +1,221 @@
+{
+  "main": {
+    "id": "7aa9c6f074ba7684",
+    "type": "split",
+    "children": [
+      {
+        "id": "02f52026f9cb4cfe",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "919bb43a07204b3f",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3352f6639d1d88ce",
+    "type": "split",
+    "children": [
+      {
+        "id": "c03860594bbd988f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bf263d217a1ef0c4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "02aa0cb6e20d0547",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "21a04d1e80d86459",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "74fcf0f11024b85a",
+    "type": "split",
+    "children": [
+      {
+        "id": "2e01c262e8330841",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9265e2edc09471a3",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "business-analysis/asset/img/ibm-rup.jpeg",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "ibm-rup 的反向链接列表"
+            }
+          },
+          {
+            "id": "a69bebc3e3ee7f20",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "business-analysis/asset/img/ibm-rup.jpeg",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "ibm-rup 的出链列表"
+            }
+          },
+          {
+            "id": "274061221cf0398b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "677dcd62d9091506",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "483a766043b3d8b4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "business-analysis/asset/img/ibm-rup.jpeg",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "ibm-rup 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "bf263d217a1ef0c4",
+  "lastOpenFiles": [
+    "business-analysis/副本BOMIS-差异报告需求分析说明0116.docx",
+    "business-analysis/asset/bpmn/BOMIS-Phase2-User-Journey-V1.0.0.drawio",
+    "business-analysis/asset/bpmn/FSM.drawio",
+    "business-analysis/asset/bpmn",
+    "business-analysis/使用 JIRA 进行需求管理.md",
+    "business-analysis/asset/img/ibm-rup.jpeg",
+    "business-analysis/asset/img",
+    "business-analysis/asset",
+    "business-analysis/uboreg.md",
+    "未命名.md",
+    "中国人民银行受益所有人监管文件汇总.md",
+    "dairy/2026-01-24.md",
+    "business-analysis",
+    "未命名 1.canvas",
+    "未命名.canvas",
+    "dairy",
+    "AI/LLM/positional_encoding_visualization.png",
+    "README.md",
+    "writedocs/samples/product01/prod01_1.md",
+    "utilities/utilities_readme.md",
+    "scripts/python/python_debug.md",
+    "scripts/html/html_readme.md",
+    "projmgmt/projmgmt.md",
+    "ProductManager/pmcore.md",
+    "business-modelling/bpmn/bpmn_readme.md",
+    "business-modelling/bpmn/bpmn-symbols/bpmn_symbols.md",
+    "business-modelling/bpmn/bpmn-symbols/tasks/activities.png",
+    "business-modelling/bpmn/bpmn-symbols/gateways/gateway-types.png",
+    "business-modelling/bpmn/bpmn-symbols/events/bpmn-events-and-markers.png",
+    "business-modelling/bpmn/bpmn-symbols/events/bpmn-events-2.png",
+    "business-modelling/bpmn/bpmn-symbols/dataobj/data-store.svg",
+    "business-modelling/bpmn/bpmn-symbols/dataobj/data-output.svg",
+    "business-modelling/bpmn/bpmn-symbols/dataobj/data-object.svg",
+    "business-modelling/bpmn/bpmn-symbols/dataobj/data-input.svg",
+    "AI/LLM/LLM101.md",
+    "AI/AI-Tools/ai-tools.md"
+  ]
+}

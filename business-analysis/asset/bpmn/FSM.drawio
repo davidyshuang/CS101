@@ -1,0 +1,399 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram id="FSM" name="FSM">
+    <mxGraphModel dx="2052" dy="1187" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4200" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Participant_Merged" value="统一受益人核验及差异处理流程" style="swimlane;whiteSpace=wrap;html=1;horizontal=1;rounded=0;startSize=28;" parent="1" vertex="1">
+          <mxGeometry x="140" y="90" width="1750" height="690" as="geometry" />
+        </mxCell>
+        <mxCell id="Task_SecondVerificationTriggered" value="第二次核验被触发&#xa;#2 UBO&#xa;VERI&#xa;_TRIGGERED" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="982" y="134" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Gateway_PBOC_Review" value="人行评审结果" style="rhombus;whiteSpace=wrap;html=1;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1377" y="441" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Task_PBOC_REVIEW_1_REJECTED" value="人行评审&#xa;初次不通过&#xa;PBOC&#xa;_REVIEW #1&#xa;_REJECTED" style="rounded=1;whiteSpace=wrap;html=1;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1357" y="594" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_to_PBOC_Approved" value="人行通过" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="Gateway_PBOC_Review" target="183" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_to_PBOC_Rejected_1" value="人行初次驳回" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" parent="Participant_Merged" source="Gateway_PBOC_Review" target="Task_PBOC_REVIEW_1_REJECTED" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_to_PBOC_Review_NonMajor" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;fillColor=#dae8fc;strokeColor=light-dark(#33001A,#000000);strokeWidth=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="Task_Submit_PBOC_NonMajor" target="180" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="130" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="Participant_Merged" source="Task_Submit_PBOC_NonMajor" target="Gateway_PBOC_Review" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1229" y="400" />
+              <mxPoint x="1417" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Task_Submit_PBOC_NonMajor" value="差异报告已提交人行 (非重大)&#xa;DR_to_PBOC&#xa;_SUBMITTED" style="rounded=1;whiteSpace=wrap;html=1;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1169" y="287" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_1hd8kqf" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="Participant_Merged" source="75" target="Task_Submit_PBOC_NonMajor" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="885" y="366.4000000000001" as="sourcePoint" />
+            <mxPoint x="1235" y="421.3699999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="67" value="" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=end;symbol=terminate;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1579" y="223" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Gateway_NonMajor_Choice" value="是否报送人行?" style="rhombus;whiteSpace=wrap;html=1;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="814" y="287" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_to_NonMajor_NoReport" value="不报送" style="endArrow=block;html=1;rounded=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;curved=0;jumpStyle=gap;" parent="Participant_Merged" source="Gateway_NonMajor_Choice" target="67" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="854" y="248" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Flow_to_NonMajor_Report" value="报送" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" parent="Participant_Merged" source="Gateway_NonMajor_Choice" target="75" edge="1">
+          <mxGeometry x="-0.3391" relative="1" as="geometry">
+            <mxPoint x="745" y="366.4000000000001" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="73" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;调查报告评审&lt;/span&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;isLoopSub=1;strokeColor=#FF8000;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="795" y="441" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="74" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;差异报告评审&lt;/span&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;isLoopSub=1;strokeColor=#4D9900;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="982" y="441" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="75" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;非重大差异报备&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;（鼓励）&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;评审&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;isLoopSub=1;strokeColor=#4D9900;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="982" y="287" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="76" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="73" target="74" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Gateway_InitialCheck" value="根据触发类型分配TODO" style="rhombus;whiteSpace=wrap;html=1;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="627" y="287" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_Path_NonMajorDiscrepancy" value="非重大差异" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" parent="Participant_Merged" source="Gateway_InitialCheck" target="Gateway_NonMajor_Choice" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="115" value="&lt;span style=&quot;color: rgb(0, 0, 0); text-wrap-mode: wrap; background-color: rgb(251, 251, 251);&quot;&gt;核验流程&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(0, 0, 0); text-wrap-mode: wrap; background-color: rgb(251, 251, 251);&quot;&gt;触发&lt;/span&gt;&lt;/div&gt;" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=middle;labelBackgroundColor=#ffffff;verticalAlign=middle;align=right;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=standard;symbol=general;labelPosition=left;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="80" y="302" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="133" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" parent="Participant_Merged" source="118" target="Task_SecondVerificationTriggered" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="138" value="非特殊&lt;div&gt;情形&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="133" vertex="1" connectable="0">
+          <mxGeometry x="-0.0665" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="118" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;调查报告评审&lt;/span&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;isLoopSub=1;strokeColor=#FF8000;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="795" y="134" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_0c0qyig" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;特殊情形&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;（6.2.1 承诺免报/6.3.1 国有控股，而且没有“自行填报”）&lt;/span&gt;&lt;/div&gt;" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;jumpStyle=gap;strokeWidth=2;" parent="Participant_Merged" source="118" target="134" edge="1">
+          <mxGeometry x="-0.0068" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="855" y="88" />
+              <mxPoint x="1229" y="88" />
+            </Array>
+            <mxPoint x="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Flow_0kn1kqj" value="特殊情形（6.1.1主体未备案）&lt;div&gt;客户不属于备案主体范&lt;/div&gt;" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;jumpStyle=gap;strokeWidth=2;" parent="Participant_Merged" source="118" target="67" edge="1">
+          <mxGeometry x="0.3875" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="855" y="58" />
+              <mxPoint x="1604" y="58" />
+            </Array>
+            <mxPoint x="1590" y="-316" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gateway_Major_Choice" value="客户是否存在故意隐瞒?" style="rhombus;whiteSpace=wrap;html=1;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="627" y="441" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_Path_MajorDiscrepancy" value="重大差异" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;" parent="Participant_Merged" source="Gateway_InitialCheck" target="Gateway_Major_Choice" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Flow_05alf15" value="无隐瞒" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="Gateway_Major_Choice" target="73" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="123" value="核验" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;isLoopSub=1;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="61" y="134" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="124" value="查询" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;bpmnShapeType=subprocess;isLoopSub=1;outline=eventNonint;symbol=timer;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="232" y="134" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="131" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;报UAR&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;（不在BOMIS记录）&lt;/span&gt;&lt;/div&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;isLoopSub=1;fillColor=#eeeeee;strokeColor=#36393d;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="795" y="543" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="132" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="Gateway_Major_Choice" target="131" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="667" y="583" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="137" value="有隐瞒" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="132" vertex="1" connectable="0">
+          <mxGeometry x="-0.0546" y="2" relative="1" as="geometry">
+            <mxPoint x="17" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="134" value="发送主题信息补充报文" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;isLoopSub=1;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1169" y="134" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="139" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=light-dark(#33001A,#000000);strokeWidth=2;jumpStyle=gap;" parent="Participant_Merged" source="Task_SecondVerificationTriggered" target="124" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1040" y="108" />
+              <mxPoint x="292" y="108" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="140" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="Task_Submit_PBOC_NonMajor" target="67" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1230" y="248" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="142" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="Participant_Merged" source="183" target="67" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1664" y="481" />
+              <mxPoint x="1710" y="481" />
+              <mxPoint x="1710" y="248" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="149" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;jumpStyle=gap;" parent="Participant_Merged" source="175" target="74" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="151" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;核实是否属于特殊情况&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;INV_WIP&lt;/span&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=user;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="607" y="134" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="152" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="Gateway_InitialCheck" target="151" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="154" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;备案主体或者UBO未登记&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="152" vertex="1" connectable="0">
+          <mxGeometry x="0.7083" y="1" relative="1" as="geometry">
+            <mxPoint y="28" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="153" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="151" target="118" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="157" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="Participant_Merged" source="155" target="Gateway_InitialCheck" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="155" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;待办事项已分配&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Task&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;ASSIGNED&lt;/span&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=user;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="420" y="287" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="161" value="自动创建代办事项&lt;div&gt;CREATED&lt;/div&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;taskMarker=businessRule;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="232" y="287" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="162" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="115" target="161" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="163" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="161" target="155" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="125" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;entryPerimeter=0;" parent="Participant_Merged" source="123" target="161" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="121" y="253" />
+              <mxPoint x="292" y="253" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="126" value="备案主体未登记" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="125" vertex="1" connectable="0">
+          <mxGeometry x="-0.045" y="4" relative="1" as="geometry">
+            <mxPoint x="-8" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="61" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;entryPerimeter=0;" parent="Participant_Merged" source="Task_PBOC_REVIEW_1_REJECTED" target="73" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="322" y="367" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="950" y="634" />
+              <mxPoint x="950" y="501" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="129" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="124" target="161" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="292" y="287" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="167" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="Participant_Merged" source="165" target="Gateway_PBOC_Review" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="165" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;差异报告&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;已提交人行&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;DR_to_PBOC&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;_SUBMITTED&lt;/span&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=user;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1169" y="441" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="166" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="74" target="165" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="169" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" parent="Participant_Merged" source="123" target="124" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="121" y="108" />
+              <mxPoint x="262" y="108" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="184" value="自动触发查询" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="169" vertex="1" connectable="0">
+          <mxGeometry x="-0.0693" y="-2" relative="1" as="geometry">
+            <mxPoint x="1" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="172" value="" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=boundInt;symbol=error;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1340" y="568" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="174" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;jumpStyle=gap;" parent="Participant_Merged" source="Task_SecondVerificationTriggered" target="175" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1182" y="304" as="sourcePoint" />
+            <mxPoint x="1182" y="531" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1010" y="230" />
+              <mxPoint x="950" y="230" />
+              <mxPoint x="950" y="363" />
+              <mxPoint x="945" y="363" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="175" value="" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=eventInt;symbol=escalation;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="920" y="360" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="180" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;报告已归档 (报送)&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;DR_in FileNet&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;_ARCHIVED&lt;/span&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;taskMarker=script;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1544" y="287" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="181" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" parent="Participant_Merged" source="183" target="180" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="182" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="180" target="67" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="183" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;人行评审通过&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;PBOC&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;_REVIEW&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;_APPROVED&lt;/span&gt;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=script;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="1544" y="442" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="185" value="对于人行提到的从UAR（含从交易监测）触发的核验，在BOMIS不需要特别记录此来源" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="26" y="58" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="186" style="edgeStyle=none;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Participant_Merged" source="185" target="123" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s1F-Mmn_mFxQ9MudEtyi-186" value="&lt;br&gt;&lt;span data-teams=&quot;true&quot;&gt;触发UBO核验的原因， 比如CDD， KYC, 以及One off ETB, and UAR 等， 是否需要记录？&lt;/span&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="Participant_Merged" vertex="1">
+          <mxGeometry x="40" y="568" width="380" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="78" value="" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;verticalAlign=top;align=left;spacingLeft=5;strokeColor=#4D9900;" parent="1" vertex="1">
+          <mxGeometry x="1040" y="842" width="850" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="94" value="调查报告拟稿中&#xa;WD_WIP" style="rounded=1;whiteSpace=wrap;html=1;" parent="78" vertex="1">
+          <mxGeometry x="154" y="104.25756756756755" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="95" value="调查报告已提交 WD_ SUBMITTED" style="rounded=1;whiteSpace=wrap;html=1;" parent="78" vertex="1">
+          <mxGeometry x="300" y="27.50081081081089" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="96" value="调查报告评审中 WD_REVIEW_WIP" style="rounded=1;whiteSpace=wrap;html=1;" parent="78" vertex="1">
+          <mxGeometry x="429" y="104.25756756756755" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="97" value="调查报告评审 通过 WD_ APPROVED" style="rounded=1;whiteSpace=wrap;html=1;" parent="78" vertex="1">
+          <mxGeometry x="566" y="27.50081081081089" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="98" value="调查报告评审 不通过 WD_REJECTED" style="rounded=1;whiteSpace=wrap;html=1;" parent="78" vertex="1">
+          <mxGeometry x="291" y="104.25756756756755" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="101" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;" parent="78" source="94" target="95" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="263" y="57.690000000000055" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="102" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;" parent="78" source="95" target="96" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="103" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;" parent="78" source="96" target="97" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="105" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;" parent="78" source="96" target="98" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="106" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;" parent="78" source="98" target="94" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="147" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="78" source="145" target="94" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="145" value="" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=standard;symbol=general;" parent="78" vertex="1">
+          <mxGeometry x="60" y="107.3417647058825" width="33.8235294117647" height="33.8235294117647" as="geometry" />
+        </mxCell>
+        <mxCell id="146" value="" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=end;symbol=terminate2;" parent="78" vertex="1">
+          <mxGeometry x="746.0900000000001" y="107.33705882352956" width="33.8235294117647" height="33.8235294117647" as="geometry" />
+        </mxCell>
+        <mxCell id="148" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="78" source="97" target="146" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="108" value="" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;bpmnShapeType=call;verticalAlign=top;align=left;spacingLeft=5;strokeColor=#FF8000;" parent="1" vertex="1">
+          <mxGeometry x="140" y="842" width="850" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="37" value="差异报告拟稿中 DR_WIP" style="rounded=1;whiteSpace=wrap;html=1;flipH=0;" parent="108" vertex="1">
+          <mxGeometry x="156.09000000000003" y="122.50352941176493" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="38" value="差异报告已提交 DR_ SUBMITTED" style="rounded=1;whiteSpace=wrap;html=1;" parent="108" vertex="1">
+          <mxGeometry x="295.09000000000003" y="27.503529411764703" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="39" value="差异报告评审中 DR_REVIEW_WIP" style="rounded=1;whiteSpace=wrap;html=1;flipH=0;" parent="108" vertex="1">
+          <mxGeometry x="435.09000000000003" y="122.50352941176493" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="40" value="差异报告评审 通过 DR_ APPROVED" style="rounded=1;whiteSpace=wrap;html=1;flipH=0;" parent="108" vertex="1">
+          <mxGeometry x="574.09" y="27.503529411764703" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="41" value="差异报告评审 不通过 DR_REJECTED" style="rounded=1;whiteSpace=wrap;html=1;flipH=0;" parent="108" vertex="1">
+          <mxGeometry x="295.09000000000003" y="122.50352941176493" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="44" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;" parent="108" source="37" target="38" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="195.09000000000003" y="47.680000000000064" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="45" style="endArrow=block;html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;curved=0;" parent="108" source="38" target="39" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="46" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" parent="108" source="39" target="40" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="47" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" parent="108" source="39" target="41" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="49" style="endArrow=block;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" parent="108" source="41" target="37" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="109" value="" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=end;symbol=terminate2;flipH=0;" parent="108" vertex="1">
+          <mxGeometry x="756.09" y="125.59176470588227" width="33.8235294117647" height="33.8235294117647" as="geometry" />
+        </mxCell>
+        <mxCell id="110" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="108" source="40" target="109" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="113" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="108" source="112" target="37" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="112" value="" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=standard;symbol=general;flipH=0;" parent="108" vertex="1">
+          <mxGeometry x="60.09" y="125.59176470588227" width="33.8235294117647" height="33.8235294117647" as="geometry" />
+        </mxCell>
+        <mxCell id="143" value="&#xa;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;调查报告评审&lt;/span&gt;&#xa;&#xa;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="150" y="820" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="144" value="&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;差异报告评审&lt;/span&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="1080" y="810" width="110" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
