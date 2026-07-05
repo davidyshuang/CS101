@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract Ontology Neo4j-Style Visualizer</title>
+    <!-- Use Vis.js for Graph Visualization -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <!-- Use N3.js for parsing Turtle files -->
+    <script src="https://unpkg.com/n3/browser/n3.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            overflow: hidden;
+        }
+        #header {
+            padding: 15px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        #header h2 {
+            margin: 0;
+            color: #333;
+            font-size: 20px;
+        }
+        #controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        #filters {
+            padding: 10px 20px;
+            background-color: #fafafa;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: 13px;
+            flex-wrap: wrap;
+        }
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-right: 1px solid #ddd;
+            padding-right: 15px;
+        }
+        .filter-group:last-child {
+            border-right: none;
+        }
+        .filter-group strong {
+            color: #555;
+        }
+        input[type="file"], input[type="text"] {
+            font-size: 13px;
+        }
+        input[type="text"] {
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 120px;
+        }
+        button {
+            padding: 5px 10px;
+            font-size: 13px;
+            cursor: pointer;
+            background-color: #008cc1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #0077a3;
+        }
+        label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        #mynetwork {
+            width: 100%;
+            height: calc(100% - 120px);
+            background-color: #ffffff;
+        }
+        .vis-network {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h2>Contract Ontology Visualizer (Neo4j Style)</h2>
+        <div id="controls">
+            <input type="file" id="fileInput" accept=".ttl" title="Choose a local .ttl file" />
+            <button id="loadDefault">Load contract_ontology.ttl</button>
+        </div>
+    </div>
+    <div id="filters">
+        <div class="filter-group">
+            <strong>Nodes:</strong>
+            <label><input type="checkbox" id="showClasses" checked> Classes</label>
+            <label><input type="checkbox" id="showIndividuals" checked> Individuals</label>
+            <label><input type="checkbox" id="showLiterals" checked> Literals</label>
+            <label><input type="checkbox" id="showPropertyDefs"> Property Defs</label>
+            <label><input type="checkbox" id="showRestrictions"> Blank/Restrictions</label>
+        </div>
+        <div class="filter-group">
+            <strong>Edges:</strong>
+            <label><input type="checkbox" id="showTypeEdges" checked> rdf:type</label>
+            <label><input type="checkbox" id="showSubclassEdges" checked> rdfs:subClassOf</label>
+            <label><input type="checkbox" id="showSchemaEdges"> Domain/Range</label>
+        </div>
+        <div class="filter-group">
+            <strong>Layout:</strong>
+            <label><input type="checkbox" id="enablePhysics" checked> Physics Simulation</label>
+        </div>
+        <div class="filter-group">
+            <strong>Search:</strong>
+            <input type="text" id="searchInput" placeholder="Filter node...">
+            <button id="applySearchBtn">Apply</button>
+        </div>
+    </div>
+    <div id="mynetwork"></div>
+
+    <script>
+        // Initialize Vis.js Network
+        var container = document.getElementById('mynetwork');
+        var nodes = new vis.DataSet();
+        var edges = new vis.DataSet();
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        
+        var globalNodes = [];
+        var globalEdges = [];
+        
+        // Neo4j-like styling options
+        var options = {
+            nodes: {
+                shape: 'dot',
+                size: 22,
+                font: { size: 13, color: '#333', face: 'Segoe UI' },
+                borderWidth: 2,
+                shadow: { enabled: true, color: 'rgba(0,0,0,0.15)', size: 8, x: 2, y: 2 }
+            },
+            edges: {
+                width: 1.2,
+                font: { size: 11, align: 'top', face: 'Segoe UI', background: 'white' },
+                arrows: { to: { enabled: true, scaleFactor: 0.7 } },
+                color: { color: '#a0a0a0', highlight: '#333333', hover: '#333333' },
+                smooth: { type: 'continuous' }
+            },
+            physics: {
+                enabled: true,
+                forceAtlas2Based: { gravitationalConstant: -80, centralGravity: 0.01, springLength: 150, springConstant: 0.05, damping: 0.4 },
+                solver: 'forceAtlas2Based',
+                stabilization: { iterations: 150 }
+            },
+            groups: {
+                Class: { color: { background: '#fdb462', border: '#e69f00' } }, // Orange
+                Individual: { color: { background: '#8dd3c7', border: '#1b9e77' } }, // Green
+                Literal: { color: { background: '#d9d9d9', border: '#969696' }, shape: 'box', size: 12, font: { size: 11 } }, // Grey
+                PropertyDef: { color: { background: '#bebada', border: '#7570b3' }, shape: 'diamond', size: 18 }, // Purple
+                Restriction: { color: { background: '#fccde5', border: '#ccebc5' }, shape: 'ellipse', size: 10, font: { size: 10 } } // Pink
+            },
+            interaction: { hover: true, navigationButtons: true, keyboard: true }
+        };
+        
+        var network = new vis.Network(container, data, options);
+
+        function applyFilters() {
+            const showClasses = document.getElementById('showClasses').checked;
+            const showIndividuals = document.getElementById('showIndividuals').checked;
+            const showLiterals = document.getElementById('showLiterals').checked;
+            const showPropertyDefs = document.getElementById('showPropertyDefs').checked;
+            const showRestrictions = document.getElementById('showRestrictions').checked;
+            
+            const showTypeEdges = document.getElementById('showTypeEdges').checked;
+            const showSubclassEdges = document.getElementById('showSubclassEdges').checked;
+            const showSchemaEdges = document.getElementById('showSchemaEdges').checked;
+            
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            // Filter nodes
+            const filteredNodes = globalNodes.filter(n => {
+                if (n.group === 'Class' && !showClasses) return false;
+                if (n.group === 'Individual' && !showIndividuals) return false;
+                if (n.group === 'Literal' && !showLiterals) return false;
+                if (n.group === 'PropertyDef' && !showPropertyDefs) return false;
+                if (n.group === 'Restriction' && !showRestrictions) return false;
+
+                if (searchTerm && n.label.toLowerCase().indexOf(searchTerm) === -1 && 
+                   (typeof n.id === 'string' && n.id.toLowerCase().indexOf(searchTerm) === -1)) {
+                    return false;
+                }
+                return true;
+            });
+
+            const validNodeIds = new Set(filteredNodes.map(n => n.id));
+
+            // Filter edges
+            const filteredEdges = globalEdges.filter(e => {
+                if (!showTypeEdges && e.originalPredicate === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') return false;
+                if (!showSubclassEdges && e.originalPredicate === 'http://www.w3.org/2000/01/rdf-schema#subClassOf') return false;
+                if (!showSchemaEdges && (e.originalPredicate === 'http://www.w3.org/2000/01/rdf-schema#domain' || e.originalPredicate === 'http://www.w3.org/2000/01/rdf-schema#range')) return false;
+                
+                return validNodeIds.has(e.from) && validNodeIds.has(e.to);
+            });
+
+            nodes.clear();
+            edges.clear();
+            nodes.add(filteredNodes);
+            edges.add(filteredEdges);
+        }
+
+        // Attach event listeners
+        ['showClasses', 'showIndividuals', 'showLiterals', 'showPropertyDefs', 'showRestrictions', 
+         'showTypeEdges', 'showSubclassEdges', 'showSchemaEdges'].forEach(id => {
+            document.getElementById(id).addEventListener('change', applyFilters);
+        });
+        
+        document.getElementById('enablePhysics').addEventListener('change', (e) => {
+            network.setOptions({ physics: { enabled: e.target.checked } });
+        });
+
+        document.getElementById('applySearchBtn').addEventListener('click', applyFilters);
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') applyFilters();
+        });
+
+        function parseTTL(ttlString) {
+            const parser = new N3.Parser();
+            const addedNodes = new Map();
+            globalEdges = [];
+            
+            function addNode(id, type, label, isBlank = false) {
+                if (!addedNodes.has(id)) {
+                    let finalGroup = isBlank ? 'Restriction' : type;
+                    let finalLabel = isBlank ? "Blank/Restriction" : label;
+                    addedNodes.set(id, { id: id, label: finalLabel, group: finalGroup, title: id, isBlank: isBlank });
+                } else {
+                    let existing = addedNodes.get(id);
+                    if (!existing.isBlank) {
+                        if (type === 'Class' || type === 'PropertyDef') existing.group = type;
+                        if (label && id.includes(label) === false) existing.label = label;
+                    }
+                }
+            }
+
+            const parsedTriples = [];
+
+            parser.parse(ttlString, (error, quad, prefixes) => {
+                if (error) {
+                    console.error(error);
+                    alert("Error parsing TTL file: " + error.message);
+                    return;
+                }
+                if (quad) {
+                    parsedTriples.push(quad);
+                } else {
+                    processTriples(parsedTriples);
+                }
+            });
+            
+            function processTriples(triples) {
+                const labels = {};
+                const comments = {};
+                const types = {};
+
+                triples.forEach(q => {
+                    const s = q.subject.value;
+                    const p = q.predicate.value;
+                    const o = q.object.value;
+                    
+                    if (p === 'http://www.w3.org/2000/01/rdf-schema#label') labels[s] = o;
+                    if (p === 'http://www.w3.org/2000/01/rdf-schema#comment') comments[s] = o;
+                    if (p === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') {
+                        if (!types[s]) types[s] = [];
+                        types[s].push(o);
+                    }
+                });
+
+                function getLabel(uri) {
+                    if (labels[uri]) return labels[uri];
+                    return uri.split('#').pop().split('/').pop();
+                }
+
+                function getGroup(uri) {
+                    const t = types[uri] || [];
+                    if (t.includes('http://www.w3.org/2002/07/owl#Class')) return 'Class';
+                    if (t.includes('http://www.w3.org/2002/07/owl#ObjectProperty') || 
+                        t.includes('http://www.w3.org/2002/07/owl#DatatypeProperty')) return 'PropertyDef';
+                    if (uri.startsWith('http://www.w3.org')) return 'Class'; 
+                    return 'Individual';
+                }
+
+                triples.forEach(q => {
+                    const s = q.subject.value;
+                    const p = q.predicate.value;
+                    let o = q.object.value;
+                    const isLiteral = q.object.termType === 'Literal';
+                    const isBlankS = q.subject.termType === 'BlankNode';
+                    const isBlankO = q.object.termType === 'BlankNode';
+
+                    // Ignore annotation properties in edges
+                    if (p === 'http://www.w3.org/2000/01/rdf-schema#label' || 
+                        p === 'http://www.w3.org/2000/01/rdf-schema#comment' ||
+                        p === 'http://www.w3.org/2002/07/owl#versionInfo') {
+                        return;
+                    }
+
+                    // Special handling for defining types (don't draw edge to owl:Class itself to reduce noise)
+                    if (p === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') {
+                        if (o === 'http://www.w3.org/2002/07/owl#Class' || 
+                            o === 'http://www.w3.org/2002/07/owl#ObjectProperty' || 
+                            o === 'http://www.w3.org/2002/07/owl#DatatypeProperty' ||
+                            o === 'http://www.w3.org/2002/07/owl#Ontology') {
+                            addNode(s, getGroup(s), getLabel(s), isBlankS);
+                            return; 
+                        }
+                    }
+
+                    addNode(s, getGroup(s), getLabel(s), isBlankS);
+                    let pLabel = getLabel(p);
+
+                    if (isLiteral) {
+                        let litLabel = o.length > 25 ? o.substring(0, 25) + '...' : o;
+                        let litId = s + '_' + p + '_' + Math.random().toString(36).substr(2, 5);
+                        
+                        addNode(litId, 'Literal', litLabel, false);
+                        
+                        globalEdges.push({
+                            from: s,
+                            to: litId,
+                            label: pLabel,
+                            title: pLabel + ' = ' + o,
+                            originalPredicate: p
+                        });
+                    } else {
+                        addNode(o, getGroup(o), getLabel(o), isBlankO);
+                        
+                        globalEdges.push({
+                            from: s,
+                            to: o,
+                            label: pLabel,
+                            title: pLabel,
+                            originalPredicate: p
+                        });
+                    }
+                });
+
+                globalNodes = Array.from(addedNodes.values());
+                globalNodes.forEach(n => {
+                    if (comments[n.id]) {
+                        n.title = `<b>${n.label}</b><br/>${comments[n.id]}`;
+                    } else {
+                        n.title = `<b>${n.label}</b><br/>URI: ${n.id}`;
+                    }
+                    let el = document.createElement('div');
+                    el.innerHTML = n.title;
+                    n.title = el;
+                });
+
+                applyFilters();
+            }
+        }
+
+        // File loading events
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) { parseTTL(evt.target.result); };
+            reader.readAsText(file);
+        });
+
+        document.getElementById('loadDefault').addEventListener('click', function() {
+            fetch('contract_ontology.ttl')
+                .then(response => {
+                    if (!response.ok) throw new Error("File not found (" + response.status + ")");
+                    return response.text();
+                })
+                .then(data => parseTTL(data))
+                .catch(err => alert("Could not load default file via fetch. If opening via file:// protocol, please use the 'Choose File' button instead.\n\nError: " + err.message));
+        });
+
+        // Auto-load
+        setTimeout(() => {
+            fetch('contract_ontology.ttl')
+                .then(response => {
+                    if (response.ok) return response.text();
+                    throw new Error("Not OK");
+                })
+                .then(data => parseTTL(data))
+                .catch(err => console.log("Auto-fetch failed. Awaiting manual input."));
+        }, 500);
+            
+    </script>
+</body>
+</html>

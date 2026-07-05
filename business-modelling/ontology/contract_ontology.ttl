@@ -1,0 +1,355 @@
+@prefix : <http://example.org/contract#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+
+<http://example.org/contract> a owl:Ontology ;
+    rdfs:label "合同管理本体"@zh ;
+    rdfs:comment "支持合同、条款、发票、收款等核心业务的OWL本体（Turtle 格式示例）。建议保存为 newdoc/contract_ontology.ttl。"@zh ;
+    owl:versionInfo "1.0" .
+
+###############################################################################
+# Classes
+###############################################################################
+
+:Contract a owl:Class ;
+    rdfs:label "合同"@zh ;
+    rdfs:comment "合同的主实体，包含合同编号、签署方、金额、条款、起止日期等信息。"@zh ;
+    rdfs:subClassOf [ a owl:Restriction ;
+                     owl:onProperty :hasParty ;
+                     owl:minCardinality 1 ] ,
+                    [ a owl:Restriction ;
+                     owl:onProperty :hasClause ;
+                     owl:minCardinality 1 ] .
+
+:ContractClause a owl:Class ;
+    rdfs:label "合同条款"@zh ;
+    rdfs:comment "合同中的具体条款，如价格条款、服务条款、验收条款等。"@zh .
+
+:ContractItem a owl:Class ;
+    rdfs:label "合同项"@zh ;
+    rdfs:comment "合同中细分的条目（可选），用于多项计费或分项开票/收款。"@zh .
+
+:Invoice a owl:Class ;
+    rdfs:label "发票"@zh ;
+    rdfs:comment "与合同或合同项关联的发票记录，包含发票号、金额、税率、开票日期、状态等。"@zh .
+
+:VATInvoice a owl:Class ;
+    rdfs:label "增值税发票"@zh ;
+    rdfs:comment "增值税专用/普票的子类示例。"@zh ;
+    rdfs:subClassOf :Invoice .
+
+:ElectronicInvoice a owl:Class ;
+    rdfs:label "电子发票"@zh ;
+    rdfs:comment "电子形式的发票。"@zh ;
+    rdfs:subClassOf :Invoice .
+
+:Payment a owl:Class ;
+    rdfs:label "收款/付款记录"@zh ;
+    rdfs:comment "合同或发票的收款记录，包含收款时间、金额、方式、账户等。"@zh .
+
+:Party a owl:Class ;
+    rdfs:label "当事方"@zh ;
+    rdfs:comment "合同签约方的抽象类，可以是组织或个人。"@zh .
+
+:Person a owl:Class ;
+    rdfs:label "自然人"@zh ;
+    rdfs:comment "个人签约方。"@zh ;
+    rdfs:subClassOf :Party .
+
+:Organization a owl:Class ;
+    rdfs:label "组织"@zh ;
+    rdfs:comment "机构/企业签约方。"@zh ;
+    rdfs:subClassOf :Party .
+
+:Supplier a owl:Class ;
+    rdfs:label "供应方"@zh ;
+    rdfs:comment "作为供应商的组织或个人。"@zh ;
+    rdfs:subClassOf :Party .
+
+:Customer a owl:Class ;
+    rdfs:label "客户"@zh ;
+    rdfs:comment "作为客户的组织或个人。"@zh ;
+    rdfs:subClassOf :Party .
+
+:ProductLine a owl:Class ;
+    rdfs:label "产品线"@zh ;
+    rdfs:comment "产品线或业务线，用于合同分类与查询。"@zh .
+
+:Department a owl:Class ;
+    rdfs:label "部门"@zh ;
+    rdfs:comment "内部业务或审批所属部门。"@zh .
+
+:Currency a owl:Class ;
+    rdfs:label "货币"@zh ;
+    rdfs:comment "货币单位（如CNY, USD）。"@zh .
+
+:TaxRate a owl:Class ;
+    rdfs:label "税率"@zh ;
+    rdfs:comment "税率实体，用于描述发票/金额的税率。"@zh .
+
+###############################################################################
+# Object Properties
+###############################################################################
+
+:hasClause a owl:ObjectProperty ;
+    rdfs:label "包含条款"@zh ;
+    rdfs:comment "Contract -> ContractClause: 合同包含的条款。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range :ContractClause .
+
+:hasContractItem a owl:ObjectProperty ;
+    rdfs:label "包含合同项"@zh ;
+    rdfs:comment "Contract -> ContractItem: 合同可能包含多个可计费的项。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range :ContractItem .
+
+:hasParty a owl:ObjectProperty ;
+    rdfs:label "签约方"@zh ;
+    rdfs:comment "Contract -> Party: 合同的签约双方/多方。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range :Party .
+
+:issuedInvoice a owl:ObjectProperty ;
+    rdfs:label "开具发票"@zh ;
+    rdfs:comment "Contract or ContractItem -> Invoice: 指向与合同/合同项关联的发票。"@zh ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( :Contract :ContractItem ) ] ;
+    rdfs:range :Invoice .
+
+:hasPayment a owl:ObjectProperty ;
+    rdfs:label "有收款记录"@zh ;
+    rdfs:comment "Contract/Invoice -> Payment: 关联到收款/付款记录。"@zh ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( :Contract :Invoice ) ] ;
+    rdfs:range :Payment .
+
+:relatedToProductLine a owl:ObjectProperty ;
+    rdfs:label "属于产品线"@zh ;
+    rdfs:comment "Contract -> ProductLine: 合同所属的产品线。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range :ProductLine .
+
+:belongsToDepartment a owl:ObjectProperty ;
+    rdfs:label "所属部门"@zh ;
+    rdfs:comment "Contract -> Department: 合同归属的业务部门。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range :Department .
+
+:referencesContract a owl:ObjectProperty ;
+    rdfs:label "引用合同"@zh ;
+    rdfs:comment "Invoice/Payment -> Contract: 发票或收款引用到某合同。"@zh ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( :Invoice :Payment ) ] ;
+    rdfs:range :Contract .
+
+:issuedBy a owl:ObjectProperty ;
+    rdfs:label "开票方"@zh ;
+    rdfs:comment "Invoice -> Party: 发票的开具方。"@zh ;
+    rdfs:domain :Invoice ;
+    rdfs:range :Party .
+
+:receivedBy a owl:ObjectProperty ;
+    rdfs:label "收款方"@zh ;
+    rdfs:comment "Payment -> Party: 收款记录的接收方（账户所属）。"@zh ;
+    rdfs:domain :Payment ;
+    rdfs:range :Party .
+
+###############################################################################
+# Data Properties
+###############################################################################
+
+:contractNumber a owl:DatatypeProperty ;
+    rdfs:label "合同编号"@zh ;
+    rdfs:comment "唯一的合同编号（用于查询与检索）。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range xsd:string .
+
+:contractName a owl:DatatypeProperty ;
+    rdfs:label "合同名称"@zh ;
+    rdfs:comment "合同的标题/名称，支持文本检索。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range xsd:string .
+
+:signedDate a owl:DatatypeProperty ;
+    rdfs:label "签署日期"@zh ;
+    rdfs:comment "合同签署的日期。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range xsd:date .
+
+:effectiveDate a owl:DatatypeProperty ;
+    rdfs:label "生效日期"@zh ;
+    rdfs:comment "合同生效日期。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range xsd:date .
+
+:endDate a owl:DatatypeProperty ;
+    rdfs:label "结束日期"@zh ;
+    rdfs:comment "合同到期/结束日期。"@zh ;
+    rdfs:domain :Contract ;
+    rdfs:range xsd:date .
+
+:amount a owl:DatatypeProperty ;
+    rdfs:label "金额"@zh ;
+    rdfs:comment "货币金额，建议与 `currencyCode` 一起使用。"@zh ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( :Contract :ContractItem :Invoice :Payment ) ] ;
+    rdfs:range xsd:decimal .
+
+:currencyCode a owl:DatatypeProperty ;
+    rdfs:label "币种代码"@zh ;
+    rdfs:comment "ISO 4217 币种代码，如 CNY, USD。"@zh ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( :Contract :Invoice :Payment ) ] ;
+    rdfs:range xsd:string .
+
+:invoiceNumber a owl:DatatypeProperty ;
+    rdfs:label "发票号"@zh ;
+    rdfs:comment "发票编号，用于开票与核对。"@zh ;
+    rdfs:domain :Invoice ;
+    rdfs:range xsd:string .
+
+:invoiceDate a owl:DatatypeProperty ;
+    rdfs:label "开票日期"@zh ;
+    rdfs:comment "发票的开具日期。"@zh ;
+    rdfs:domain :Invoice ;
+    rdfs:range xsd:date .
+
+:invoiceAmount a owl:DatatypeProperty ;
+    rdfs:label "发票金额"@zh ;
+    rdfs:comment "发票上的金额（含税或不含税需在comment中说明或额外属性标注）。"@zh ;
+    rdfs:domain :Invoice ;
+    rdfs:range xsd:decimal .
+
+:taxRate a owl:DatatypeProperty ;
+    rdfs:label "税率"@zh ;
+    rdfs:comment "以小数表示的税率，例如 0.13 表示 13%。"@zh ;
+    rdfs:domain :Invoice ;
+    rdfs:range xsd:decimal .
+
+:invoiceStatus a owl:DatatypeProperty ;
+    rdfs:label "发票状态"@zh ;
+    rdfs:comment "发票状态枚举，如 Draft, Issued, Paid, Voided 等。"@zh ;
+    rdfs:domain :Invoice ;
+    rdfs:range xsd:string .
+
+:paidAmount a owl:DatatypeProperty ;
+    rdfs:label "已付金额"@zh ;
+    rdfs:comment "收款记录的实际已付金额。"@zh ;
+    rdfs:domain :Payment ;
+    rdfs:range xsd:decimal .
+
+:paymentDate a owl:DatatypeProperty ;
+    rdfs:label "收款日期"@zh ;
+    rdfs:comment "收款发生的日期。"@zh ;
+    rdfs:domain :Payment ;
+    rdfs:range xsd:date .
+
+:paymentMethod a owl:DatatypeProperty ;
+    rdfs:label "收款方式"@zh ;
+    rdfs:comment "银行转账、现金、支票等。"@zh ;
+    rdfs:domain :Payment ;
+    rdfs:range xsd:string .
+
+:account a owl:DatatypeProperty ;
+    rdfs:label "收款账户"@zh ;
+    rdfs:comment "用于收款的账户标识（可存储账户ID或掩码）。"@zh ;
+    rdfs:domain :Payment ;
+    rdfs:range xsd:string .
+
+###############################################################################
+# Example Individuals (至少 3 个示例实例)
+###############################################################################
+
+:Party_ACME a :Organization ;
+    rdfs:label "ACME 有限公司"@zh ;
+    rdfs:comment "示例供应方（组织）。"@zh .
+
+:Party_CloudCo a :Organization ;
+    rdfs:label "CloudCo 云服务"@zh ;
+    rdfs:comment "示例客户方（组织）。"@zh .
+
+:Contract_CN_2026_0001 a :Contract ;
+    :contractNumber "CN-2026-0001" ;
+    :contractName "云服务采购合同（ACME - CloudCo）"@zh ;
+    :signedDate "2026-01-01"^^xsd:date ;
+    :effectiveDate "2026-01-10"^^xsd:date ;
+    :endDate "2027-01-09"^^xsd:date ;
+    :amount "100000.00"^^xsd:decimal ;
+    :currencyCode "CNY" ;
+    :hasParty :Party_ACME , :Party_CloudCo ;
+    :relatedToProductLine :ProductLine_CloudServices ;
+    :belongsToDepartment :Dept_IT ;
+    :hasClause :Clause_Price1 , :Clause_Acceptance1 .
+
+:Clause_Price1 a :ContractClause ;
+    rdfs:label "价格条款 - 单价与计费周期"@zh ;
+    rdfs:comment "描述计费方式与价格。"@zh .
+
+:Clause_Acceptance1 a :ContractClause ;
+    rdfs:label "验收条款 - 验收标准"@zh ;
+    rdfs:comment "描述交付与验收标准。"@zh .
+
+:Invoice_INV_2026_0001 a :VATInvoice ;
+    :invoiceNumber "INV-2026-0001" ;
+    :invoiceDate "2026-02-01"^^xsd:date ;
+    :invoiceAmount "100000.00"^^xsd:decimal ;
+    :taxRate "0.13"^^xsd:decimal ;
+    :invoiceStatus "Issued" ;
+    :issuedBy :Party_ACME ;
+    :referencesContract :Contract_CN_2026_0001 .
+
+:Payment_PAY_2026_0001 a :Payment ;
+    :paidAmount "100000.00"^^xsd:decimal ;
+    :paymentDate "2026-02-05"^^xsd:date ;
+    :paymentMethod "BankTransfer" ;
+    :account "ACME-Acc-****1234" ;
+    :receivedBy :Party_CloudCo ;
+    :referencesContract :Contract_CN_2026_0001 ;
+    :hasPayment :Payment_PAY_2026_0001 .
+
+:ProductLine_CloudServices a :ProductLine ;
+    rdfs:label "云服务产品线"@zh .
+
+:Dept_IT a :Department ;
+    rdfs:label "信息技术部"@zh .
+
+###############################################################################
+# Rules (SWRL 或伪规则示例)
+###############################################################################
+
+# 以下为可用于推理引擎的示例规则（建议以 SWRL 形式在支持的推理器中加载）。
+# 规则 1（结清发票）：
+# Payment(?p) ^ referencesContract(?p, ?c) ^ Invoice(?i) ^ referencesContract(?i, ?c) ^
+# paidAmount(?p, ?amt) ^ invoiceAmount(?i, ?iamt) ^ swrlb:equal(?amt, ?iamt) -> invoiceStatus(?i, "Paid")
+
+# 规则 2（发票开具前异常）：
+# Invoice(?i) ^ invoiceDate(?idate) ^ Contract(?c) ^ signedDate(?c, ?sdate) ^ before(?idate, ?sdate) -> addAnnotation(?i, "异常: 发票日期早于合同签署日期")
+
+# 规则 3（自动匹配最近未结算发票）：
+# Payment(?p) ^ paidAmount(?p, ?amt) ^ referencesContract(?p, ?c) ^ Invoice(?i) ^ referencesContract(?i, ?c) ^ invoiceAmount(?i, ?iamt) ^ invoiceStatus(?i, "Issued") ^ swrlb:greaterThanOrEqual(?amt, ?iamt) -> hasPayment(?i, ?p) ; set invoiceStatus to "Paid"
+
+# 说明：上面规则为伪SWRL或可转换为SWLR原子序列的形式，具体加载到推理器时需要按照推理器语法构造 swrl:Imp 实体。
+
+###############################################################################
+# SPARQL 查询示例（注释形式，便于用户直接拷贝使用）
+###############################################################################
+
+# 按合同编号查询合同详细信息：
+# SELECT ?contract ?contractName ?signedDate WHERE { ?contract a :Contract ; :contractNumber "CN-2026-0001" ; :contractName ?contractName ; :signedDate ?signedDate . }
+
+# 按产品线与时间区间模糊查询：
+# SELECT ?contract ?contractNumber ?amount WHERE {
+#   ?contract a :Contract ; :relatedToProductLine :ProductLine_CloudServices ; :contractName ?name ; :effectiveDate ?effDate .
+#   FILTER(CONTAINS(LCASE(?name), "云服务"))
+#   FILTER(?effDate >= "2026-01-01"^^xsd:date && ?effDate <= "2026-12-31"^^xsd:date)
+# }
+
+###############################################################################
+# 扩展建议（注释）
+###############################################################################
+
+# 可扩展：电子签名 (ElectronicSignature)、合同履约里程碑 (Milestone)、审批工作流 (ApprovalProcess)、违约与赔偿 (BreachClause) 等。
+
+# 命名约定：类与属性使用驼峰式命名（CamelCase），数据属性使用小写首字母驼峰（如 contractNumber）。
+
+# End of file

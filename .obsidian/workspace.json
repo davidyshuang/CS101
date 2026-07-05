@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "02f52026f9cb4cfe",
+        "id": "bbf647b160244dd5",
         "type": "tabs",
         "children": [
           {
-            "id": "919bb43a07204b3f",
+            "id": "f2818c0324e43ede",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -179,25 +179,39 @@
       "bases:新建数据库": false
     }
   },
-  "active": "bf263d217a1ef0c4",
+  "active": "f2818c0324e43ede",
   "lastOpenFiles": [
+    "projects/BOMIS/PBOC-公钥的更新.md",
+    "projects/BOMIS",
+    "projects",
+    "business-analysis/asset/bpmn/BOMIS-Phase2-User-Journey-V1.0.0.svg",
+    "business-analysis/uboreg.md",
+    "business-analysis/asset/bpmn/FSM.svg",
+    "business-analysis/asset/bpmn/ibm-rup.jpeg",
+    "business-analysis/asset/bpmn/xp-process.png",
+    "AI/LLM/LLM101.md",
+    "AI/LLM/positional_encoding_visualization.png",
+    "AI/AI-Tools/ai-tools.md",
+    "business-modelling/bpmn/bpmn-exmaples/order_fulfilment.svg",
+    "business-modelling/bpmn/bpmn-exmaples/bpmn_examples.svg",
+    "business-analysis/ba-ai.md",
+    "business-analysis/asset/img/xp-process.webp",
+    "business-analysis/asset/img/xp-iteration.webp",
+    "business-analysis/asset/img/rup4+1.svg",
+    "business-analysis/asset/docs/xp.md",
+    "business-analysis/asset/docs/ibm4+1.pdf",
     "business-analysis/副本BOMIS-差异报告需求分析说明0116.docx",
     "business-analysis/asset/bpmn/BOMIS-Phase2-User-Journey-V1.0.0.drawio",
     "business-analysis/asset/bpmn/FSM.drawio",
     "business-analysis/asset/bpmn",
     "business-analysis/使用 JIRA 进行需求管理.md",
-    "business-analysis/asset/img/ibm-rup.jpeg",
     "business-analysis/asset/img",
     "business-analysis/asset",
-    "business-analysis/uboreg.md",
-    "未命名.md",
     "中国人民银行受益所有人监管文件汇总.md",
     "dairy/2026-01-24.md",
     "business-analysis",
     "未命名 1.canvas",
     "未命名.canvas",
-    "dairy",
-    "AI/LLM/positional_encoding_visualization.png",
     "README.md",
     "writedocs/samples/product01/prod01_1.md",
     "utilities/utilities_readme.md",
@@ -206,16 +220,6 @@
     "projmgmt/projmgmt.md",
     "ProductManager/pmcore.md",
     "business-modelling/bpmn/bpmn_readme.md",
-    "business-modelling/bpmn/bpmn-symbols/bpmn_symbols.md",
-    "business-modelling/bpmn/bpmn-symbols/tasks/activities.png",
-    "business-modelling/bpmn/bpmn-symbols/gateways/gateway-types.png",
-    "business-modelling/bpmn/bpmn-symbols/events/bpmn-events-and-markers.png",
-    "business-modelling/bpmn/bpmn-symbols/events/bpmn-events-2.png",
-    "business-modelling/bpmn/bpmn-symbols/dataobj/data-store.svg",
-    "business-modelling/bpmn/bpmn-symbols/dataobj/data-output.svg",
-    "business-modelling/bpmn/bpmn-symbols/dataobj/data-object.svg",
-    "business-modelling/bpmn/bpmn-symbols/dataobj/data-input.svg",
-    "AI/LLM/LLM101.md",
-    "AI/AI-Tools/ai-tools.md"
+    "business-modelling/bpmn/bpmn-symbols/bpmn_symbols.md"
   ]
 }
